@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02/05/2024 às 04:57
--- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.2.12
+-- Tempo de geração: 02-Maio-2024 às 17:33
+-- Versão do servidor: 10.4.27-MariaDB
+-- versão do PHP: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,7 +26,7 @@ USE `seguradora`;
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `carro`
+-- Estrutura da tabela `carro`
 --
 
 CREATE TABLE `carro` (
@@ -41,7 +41,7 @@ CREATE TABLE `carro` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `carro`
+-- Extraindo dados da tabela `carro`
 --
 
 INSERT INTO `carro` (`codCarro`, `marca`, `modelo`, `chassi`, `placa`, `cor`, `porte`, `codCliente`) VALUES
@@ -54,7 +54,7 @@ INSERT INTO `carro` (`codCarro`, `marca`, `modelo`, `chassi`, `placa`, `cor`, `p
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `cliente`
+-- Estrutura da tabela `cliente`
 --
 
 CREATE TABLE `cliente` (
@@ -75,7 +75,7 @@ CREATE TABLE `cliente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `cliente`
+-- Extraindo dados da tabela `cliente`
 --
 
 INSERT INTO `cliente` (`codCliente`, `nome`, `telefone`, `cpf`, `rg`, `email`, `rua`, `num`, `compl`, `bairro`, `cidade`, `estado`, `cep`, `dataNasc`) VALUES
@@ -88,7 +88,7 @@ INSERT INTO `cliente` (`codCliente`, `nome`, `telefone`, `cpf`, `rg`, `email`, `
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `ocorrencia`
+-- Estrutura da tabela `ocorrencia`
 --
 
 CREATE TABLE `ocorrencia` (
@@ -103,10 +103,21 @@ CREATE TABLE `ocorrencia` (
   `codCarro` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Extraindo dados da tabela `ocorrencia`
+--
+
+INSERT INTO `ocorrencia` (`codOcorrencia`, `data`, `hora`, `codTipo`, `descricao`, `bairro`, `rua`, `cidade`, `codCarro`) VALUES
+(58, '2019-08-26', '11:00:00', 'B124', 'Descarregou bateria do carro, pois cliente esqueceu luz interna acesa', 'Bairro A', 'Rua B', 'Mauá', 1),
+(59, '2019-08-26', '12:30:10', 'C111', 'Cliente trancou chaves no Porta Malas', 'Bairro C', 'Rua H', 'Santo André', 2),
+(60, '2019-08-26', '11:30:10', 'R888', 'Cliente teve carro furtado da garagem de sua Residência', 'Bairro 3º', 'Rua M', 'São Bernardo', 3),
+(61, '2019-08-26', '11:10:00', 'B859', 'Cliente bateu carro em cruzamento com perca Total, aberto sinistro', 'Bairro DD', 'Rua AMA', 'São Paulo', 4),
+(62, '2019-08-26', '17:30:10', 'C111', 'Cliente trancou chaves no Porta Malas', 'Bairro CCDD', 'Rua RRED', 'Santo André', 5);
+
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `tipo`
+-- Estrutura da tabela `tipo`
 --
 
 CREATE TABLE `tipo` (
@@ -115,7 +126,7 @@ CREATE TABLE `tipo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `tipo`
+-- Extraindo dados da tabela `tipo`
 --
 
 INSERT INTO `tipo` (`codTipo`, `tipo`) VALUES
@@ -130,14 +141,14 @@ INSERT INTO `tipo` (`codTipo`, `tipo`) VALUES
 --
 
 --
--- Índices de tabela `carro`
+-- Índices para tabela `carro`
 --
 ALTER TABLE `carro`
   ADD PRIMARY KEY (`codCarro`),
   ADD KEY `codCliente` (`codCliente`);
 
 --
--- Índices de tabela `cliente`
+-- Índices para tabela `cliente`
 --
 ALTER TABLE `cliente`
   ADD PRIMARY KEY (`codCliente`),
@@ -146,7 +157,7 @@ ALTER TABLE `cliente`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Índices de tabela `ocorrencia`
+-- Índices para tabela `ocorrencia`
 --
 ALTER TABLE `ocorrencia`
   ADD PRIMARY KEY (`codOcorrencia`),
@@ -154,13 +165,13 @@ ALTER TABLE `ocorrencia`
   ADD KEY `codTipo` (`codTipo`);
 
 --
--- Índices de tabela `tipo`
+-- Índices para tabela `tipo`
 --
 ALTER TABLE `tipo`
   ADD PRIMARY KEY (`codTipo`);
 
 --
--- AUTO_INCREMENT para tabelas despejadas
+-- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
@@ -179,20 +190,20 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de tabela `ocorrencia`
 --
 ALTER TABLE `ocorrencia`
-  MODIFY `codOcorrencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `codOcorrencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
--- Restrições para tabelas despejadas
+-- Restrições para despejos de tabelas
 --
 
 --
--- Restrições para tabelas `carro`
+-- Limitadores para a tabela `carro`
 --
 ALTER TABLE `carro`
   ADD CONSTRAINT `carro_ibfk_1` FOREIGN KEY (`codCliente`) REFERENCES `cliente` (`codCliente`);
 
 --
--- Restrições para tabelas `ocorrencia`
+-- Limitadores para a tabela `ocorrencia`
 --
 ALTER TABLE `ocorrencia`
   ADD CONSTRAINT `ocorrencia_ibfk_1` FOREIGN KEY (`codCarro`) REFERENCES `carro` (`codCarro`),
