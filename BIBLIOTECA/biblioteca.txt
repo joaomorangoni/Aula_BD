@@ -1,0 +1,95 @@
+Microsoft Windows [versão 10.0.19045.4291]
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Windows\system32>cd..
+
+C:\Windows>cd..
+
+C:\>cd xampp
+
+C:\xampp>cde bin
+'cde' não é reconhecido como um comando interno
+ou externo, um programa operável ou um arquivo em lotes.
+
+C:\xampp>cd bin
+O sistema não pode encontrar o caminho especificado.
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 10
+Server version: 10.4.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database veterinaria
+    -> ;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]> create database biblioteca;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]> use biblioteca;
+Database changed
+MariaDB [biblioteca]> create table livro
+    -> (
+    -> idlivro int primary key auto_increment,
+    -> titulo varchar(255),
+    -> qtdepaginas int,
+    -> genero varchar(255));
+Query OK, 0 rows affected (0.014 sec)
+
+MariaDB [biblioteca]> describe livro
+    -> ;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| idlivro     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| titulo      | varchar(255) | YES  |     | NULL    |                |
+| qtdepaginas | int(11)      | YES  |     | NULL    |                |
+| genero      | varchar(255) | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.030 sec)
+
+MariaDB [biblioteca]> drop database escola
+    -> ;
+Query OK, 0 rows affected (0.006 sec)
+
+MariaDB [biblioteca]> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'database' at line 1
+MariaDB [biblioteca]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| biblioteca         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
+| veterinaria        |
++--------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [biblioteca]> cd..
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'cd..' at line 1
+MariaDB [biblioteca]> use veterinaria
+Database changed
+MariaDB [veterinaria]> rename table animal to animais;
+Query OK, 0 rows affected (0.012 sec)
+
+MariaDB [veterinaria]> alter table add column grilo varchar(255);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'add column grilo varchar(255)' at line 1
+MariaDB [veterinaria]>  alter table animal add column grilo varchar(255);
+ERROR 1146 (42S02): Table 'veterinaria.animal' doesn't exist
+MariaDB [veterinaria]>  alter table animais add column grilo varchar(255);
+Query OK, 0 rows affected (0.034 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [veterinaria]>
