@@ -1,0 +1,153 @@
+Microsoft Windows [versão 10.0.22631.3593]
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\bruni>cd c:\xampp\mysql\bin
+
+c:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 22
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database produtoraVinho;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]> use produtoraVinho
+Database changed
+MariaDB [produtoraVinho]> create table regiao(
+    -> idregiao int auto_increment primary key,
+    -> descriregiao varchar (50) not null);
+Query OK, 0 rows affected (0.010 sec)
+
+MariaDB [produtoraVinho]> show tables;
++--------------------------+
+| Tables_in_produtoravinho |
++--------------------------+
+| regiao                   |
++--------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [produtoraVinho]> describe regiao;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| idregiao     | int(11)     | NO   | PRI | NULL    | auto_increment |
+| descriregiao | varchar(50) | NO   |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+2 rows in set (0.005 sec)
+
+MariaDB [produtoraVinho]> create table produtor(
+    -> produtorid int primary key auto_increment,
+    -> nomeProdutor varchar(50),
+    -> moradaProdutor varchar(50),
+    -> telefone varchar(15),
+    -> email varchar(50) unique,
+    -> codregiao int,
+    -> foreign key (codregiao) references regiao(idregiao));
+Query OK, 0 rows affected (0.018 sec)
+
+MariaDB [produtoraVinho]> describe produtor;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| produtorid     | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nomeProdutor   | varchar(50) | YES  |     | NULL    |                |
+| moradaProdutor | varchar(50) | YES  |     | NULL    |                |
+| telefone       | varchar(15) | YES  |     | NULL    |                |
+| email          | varchar(50) | YES  | UNI | NULL    |                |
+| codregiao      | int(11)     | YES  | MUL | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.006 sec)
+
+MariaDB [produtoraVinho]> create table vinho(
+    -> vinhoId int primary key auto_increment,
+    -> nomeVinho varchar(30),
+    -> ano_vinho int,
+    -> cor varchar(15),
+    -> grau decimal(7,2),
+    -> preco decimal(7,2),
+    -> codProdutor int,
+    -> foreign key (codProdutor) references produtor(produtorid));
+Query OK, 0 rows affected (0.010 sec)
+
+MariaDB [produtoraVinho]> describe vinho;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| vinhoId     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nomeVinho   | varchar(30)  | YES  |     | NULL    |                |
+| ano_vinho   | int(11)      | YES  |     | NULL    |                |
+| cor         | varchar(15)  | YES  |     | NULL    |                |
+| grau        | decimal(7,2) | YES  |     | NULL    |                |
+| preco       | decimal(7,2) | YES  |     | NULL    |                |
+| codProdutor | int(11)      | YES  | MUL | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.004 sec)
+
+MariaDB [produtoraVinho]> show tables;
++--------------------------+
+| Tables_in_produtoravinho |
++--------------------------+
+| produtor                 |
+| regiao                   |
+| vinho                    |
++--------------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [produtoraVinho]> create table casta(
+    -> codCasta int primary key auto_increment,
+    -> casta varchar(50));
+Query OK, 0 rows affected (0.010 sec)
+
+MariaDB [produtoraVinho]> describe casta;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| codCasta | int(11)     | NO   | PRI | NULL    | auto_increment |
+| casta    | varchar(50) | YES  |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+2 rows in set (0.004 sec)
+
+MariaDB [produtoraVinho]> show tables;
++--------------------------+
+| Tables_in_produtoravinho |
++--------------------------+
+| casta                    |
+| produtor                 |
+| regiao                   |
+| vinho                    |
++--------------------------+
+4 rows in set (0.001 sec)
+
+MariaDB [produtoraVinho]> create table casta_vinho(
+    -> codVinho int,
+    -> codCasta int,
+    -> foreign key(codVinho) references vinho(vinhoId),
+    -> foreign key(codCasta) references casta(codCasta));
+Query OK, 0 rows affected (0.025 sec)
+
+MariaDB [produtoraVinho]> describe casta_vinho;
++----------+---------+------+-----+---------+-------+
+| Field    | Type    | Null | Key | Default | Extra |
++----------+---------+------+-----+---------+-------+
+| codVinho | int(11) | YES  | MUL | NULL    |       |
+| codCasta | int(11) | YES  | MUL | NULL    |       |
++----------+---------+------+-----+---------+-------+
+2 rows in set (0.007 sec)
+
+MariaDB [produtoraVinho]> show tables;
++--------------------------+
+| Tables_in_produtoravinho |
++--------------------------+
+| casta                    |
+| casta_vinho              |
+| produtor                 |
+| regiao                   |
+| vinho                    |
++--------------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [produtoraVinho]>
