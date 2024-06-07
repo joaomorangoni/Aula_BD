@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24/05/2024 às 14:33
--- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.2.12
+-- Tempo de geração: 07/06/2024 às 17:44
+-- Versão do servidor: 10.4.28-MariaDB
+-- Versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -70,6 +70,20 @@ CREATE TABLE `regiao` (
   `idregiao` int(11) NOT NULL,
   `descriregiao` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `regiao`
+--
+
+INSERT INTO `regiao` (`idregiao`, `descriregiao`) VALUES
+(1, 'TestePAN'),
+(2, 'Douro'),
+(3, 'ETECMCM'),
+(4, 'Fazenda da etec'),
+(5, 'fazendinha de minas'),
+(6, 'groenlandia'),
+(7, 'fazenda sul do braya'),
+(8, '8');
 
 -- --------------------------------------------------------
 
@@ -145,7 +159,7 @@ ALTER TABLE `produtor`
 -- AUTO_INCREMENT de tabela `regiao`
 --
 ALTER TABLE `regiao`
-  MODIFY `idregiao` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idregiao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `vinho`
